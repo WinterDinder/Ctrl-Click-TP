@@ -1,0 +1,19 @@
+game.StarterGui:SetCore("SendNotification",{
+    Title = "Usage";
+    Text = "Hover mouse on target then press ctrl + mouse1";
+})
+
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local Mouse = Player:GetMouse()
+local CtrlDown = false
+Mouse.KeyDown:connect(function(Key)
+ if Key:lower():byte() == 50 then
+  CtrlDown = true
+  onKeyUp = Mouse.KeyUp:connect(function(KeyUp) if Key:lower():byte() == 50 then CtrlDown = false onKeyUp:disconnect() end end)
+ end
+end)
+Mouse.Button1Down:connect(function()
+ if not CtrlDown then return end
+ Character.Torso.CFrame = CFrame.new(Mouse.Hit.p+Vector3.new(0,7,0))
+end)
